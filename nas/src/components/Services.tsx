@@ -2,7 +2,7 @@
 
 function Services() {
   return (
-    <div >
+    <div className="p-2">
       <h1>Service</h1>
     </div>
   )
