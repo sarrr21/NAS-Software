@@ -14,7 +14,7 @@ const items: Item[] = [
   // Add more items as needed
 ];
 
-const ItemList: React.FC = () => {
+const Team: React.FC = () => {
   const [selectedItem, setSelectedItem] = useState<Item | null>(null);
   const popupRef = useRef<HTMLDivElement>(null);
 
@@ -30,16 +30,18 @@ const ItemList: React.FC = () => {
   };
 
   return (
-    <div className="p-12">
-      <h1 className="text-6xl font-bold text-center mb-8">Meet Our Core Team</h1>
-      <p className="text-gray-500 text-center mb-16">
+    <div className="p-16">
+      <h1 className="text-6xl font-bold text-center mt-36">Our Team</h1>
+      <p className="text-gray-500 text-center mt-8">
         We are a team of passionate people whose goal is to improve everyone's life through <br />
         disruptive products. We build great products to solve your business problems.
       </p>
-      <div className="container mx-auto p-4">
+      <div className="container mx-auto p-4 mt-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           {items.map((item, index) => (
             <div key={index} className="border rounded-lg shadow-lg p-4">
+              
+              <img src={item.photo} alt={item.title} className="w-full h-48 object-cover mb-8" />
               <h2 className="text-xl font-bold mb-3 text-center">{item.title}</h2>
               <p className="text-gray-500 text-center mb-6">{item.description}</p>
               <div className='flex justify-center'>
@@ -48,15 +50,11 @@ const ItemList: React.FC = () => {
   <span className="ml-2 text-lg"> &gt; </span>
 </button>
 </div>
-              <img src={item.photo} alt={item.title} className="w-full h-48 object-cover mb-8" />
-              
             </div>
           ))}
         </div>
       </div>
-      <div className="flex justify-center">
-        <button className="items-center rounded-lg px-8 py-4 border hover:border-gray-700 hover:bg-gray-400 font-semibold mb-8">View All Talent</button>
-      </div>
+      
 
       {selectedItem && (
         <div
@@ -87,4 +85,4 @@ const ItemList: React.FC = () => {
   );
 };
 
-export default ItemList;
+export default Team;

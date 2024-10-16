@@ -1,18 +1,39 @@
+
 import ClientsCarousel from "./Clientslide";
 import Expertice from "./Expertice";
 import IconSet from "./IconSet";
+import  { useState, useEffect } from 'react';
 import Showcase from "./ShowCase";
 import ItemList from "./Team";
 import ContactForm from "./contact";
+import NavBar from "./Navbar";
+import Work from "./work";
 
 const Home = () => {
-  
-return (
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 50) { // Adjust this value as needed
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+  return (
     <div>
+      <NavBar className={isScrolled ? 'bg-white shadow-md' : 'bg-transparent'} />
       <IconSet />
       <ClientsCarousel />
       <Expertice />
-      <Showcase />
+    
       <ItemList />
       <ContactForm />
     </div>
