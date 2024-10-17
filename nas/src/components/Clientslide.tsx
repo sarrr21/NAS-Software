@@ -19,44 +19,43 @@ const clients: Client[] = [
 const ClientsCarousel: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
-  const itemsToSlide = 3; // Number of items to slide at a time
-  const itemWidth = 200; // Width of each item (adjust as needed)
-  const gap = 16; // Gap between items
-  const containerRef = useRef<HTMLDivElement>(null); // Reference to the carousel container
+  const itemsToSlide = 3;
+  const itemWidth = 200;
+  const gap = 16;
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const containerWidth = containerRef.current?.offsetWidth || 0; // Get container width
-    const visibleItems = Math.floor(containerWidth / (itemWidth + gap)); // Number of visible items
+    const containerWidth = containerRef.current?.offsetWidth || 0;
+    const visibleItems = Math.floor(containerWidth / (itemWidth + gap));
 
-    // Only slide if there are hidden items
-    if (!isPaused && currentIndex + visibleItems < clients.length) {
+    if (!isPaused) {
       const interval = setInterval(() => {
         setCurrentIndex((prevIndex) => {
           const nextIndex = prevIndex + itemsToSlide;
-          return nextIndex + visibleItems >= clients.length ? prevIndex : nextIndex; // Stop sliding if all items are visible
+          return nextIndex >= clients.length ? 0 : nextIndex; // Reset to 0 when reaching the end
         });
-      }, 6000); // Slide every 3 seconds
+      }, 3000);
 
       return () => clearInterval(interval);
     }
-  }, [isPaused, currentIndex, itemsToSlide, itemWidth, gap, clients.length]);
+  }, [isPaused, currentIndex, itemsToSlide, itemWidth, gap]);
 
   const handleMouseEnter = () => setIsPaused(true);
   const handleMouseLeave = () => setIsPaused(false);
 
   return (
     <div className="w-full overflow-hidden py-8">
-      <h2 className="text-4xl font-roboto font-bold text-center mb-16">Our Clients</h2>
+      <h2 className="text-4xl font-bold text-center mb-16">Our Clients</h2>
       <div
         className="relative flex items-center justify-center"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
         <div
-          ref={containerRef} // Attach reference to the container
+          ref={containerRef}
           className="carousel-track flex transition-transform duration-1000 ease-in-out"
           style={{
-            transform: `translateX(-${currentIndex * (itemWidth + gap)}px)`, // Slide by the item width + gap
+            transform: `translateX(-${currentIndex * (itemWidth + gap)}px)`,
           }}
         >
           {clients.map((client, index) => (
@@ -66,12 +65,20 @@ const ClientsCarousel: React.FC = () => {
               style={{ minWidth: `${itemWidth}px`, marginRight: `${gap}px` }}
             >
               <div className="bg-white p-4 rounded-lg shadow-lg flex justify-center items-center" style={{ width: '160px' }}>
-                <img src={client.logo} alt={client.name} className="max-w-full max-h-16" />
+                <img
+                  src={client.logo}
+                  alt={client.name}
+                  className="max-w-full max-h-16"
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).src = '/placeholder.png'; // Fallback image
+                  }}
+                />
               </div>
             </div>
           ))}
         </div>
       </div>
+      
     </div>
   );
 };

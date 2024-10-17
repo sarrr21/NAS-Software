@@ -8,7 +8,7 @@ interface Item {
 
 const items: Item[] = [
   { title: 'Sara Getnet', description: 'Front End Developer', photo: '/sara.jpg' },
-  { title: 'Naol Ketema', description: 'Full Stack developer', photo: '/naol.png' },
+  { title: 'Naol Ketema', description: 'Full Stack Developer', photo: '/naol.png' },
   { title: 'Item 1', description: 'Description for item 1', photo: 'https://via.placeholder.com/150' },
   { title: 'Item 2', description: 'Description for item 2', photo: 'https://via.placeholder.com/150' },
   // Add more items as needed
@@ -24,7 +24,6 @@ const Team: React.FC = () => {
     }
   }, [selectedItem]);
 
- 
   const closePopup = () => {
     setSelectedItem(null);
   };
@@ -40,21 +39,22 @@ const Team: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           {items.map((item, index) => (
             <div key={index} className="border rounded-lg shadow-lg p-4">
-              
               <img src={item.photo} alt={item.title} className="w-full h-48 object-cover mb-8" />
               <h2 className="text-xl font-bold mb-3 text-center">{item.title}</h2>
               <p className="text-gray-500 text-center mb-6">{item.description}</p>
               <div className='flex justify-center'>
-              <button  className="flex  items-center text-red-600 hover:text-red-800 font-medium mb-8">
-  Read More
-  <span className="ml-2 text-lg"> &gt; </span>
-</button>
-</div>
+                <button
+                  onClick={() => setSelectedItem(item)}  // Trigger popup with selected item
+                  className="flex items-center text-red-600 hover:text-red-800 font-medium mb-8"
+                >
+                  Read More
+                  <span className="ml-2 text-lg"> &gt; </span>
+                </button>
+              </div>
             </div>
           ))}
         </div>
       </div>
-      
 
       {selectedItem && (
         <div

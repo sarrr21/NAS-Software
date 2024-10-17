@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 
 interface Item {
   title: string;
@@ -54,9 +55,9 @@ const ItemList: React.FC = () => {
           ))}
         </div>
       </div>
-      <div className="flex justify-center">
+      <Link to="/team" className="flex justify-center">
         <button className="items-center rounded-lg px-8 py-4 border hover:border-gray-700 hover:bg-gray-400 font-semibold mb-8">View All Talent</button>
-      </div>
+      </Link>
 
       {selectedItem && (
         <div

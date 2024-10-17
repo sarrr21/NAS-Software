@@ -1,13 +1,10 @@
-
 import ClientsCarousel from "./Clientslide";
 import Expertice from "./Expertice";
 import IconSet from "./IconSet";
 import  { useState, useEffect } from 'react';
-import Showcase from "./ShowCase";
 import ItemList from "./Team";
 import ContactForm from "./contact";
 import NavBar from "./Navbar";
-import Work from "./work";
 
 const Home = () => {
   const [isScrolled, setIsScrolled] = useState(false);
